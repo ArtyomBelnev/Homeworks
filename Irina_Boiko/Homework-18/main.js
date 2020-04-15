@@ -10,7 +10,7 @@
     Хорошо протестировать регулярное выражение.
 */
 
-var regexp = /^([a-z]{3,10})_([a-z]{3,10})(-\d{4})?@((\w\-?\.?){2,20})(\.com)$/i;
+var regexp = /^([a-z]{3,10})_([a-z]{3,10})(-\d{4})?@([a-z\d]{1,10}(-?|\.?)[a-z\d]{1,10})(\.com)$/i;
 
 regexp.test('name_surname-1234@gmail.com');
 
@@ -33,14 +33,14 @@ regexp.test('name_surname-1234@gmail.com');
 */
 
 function checkPhoneNumber(number) {
-    console.log(/^(\+?375-?((25)|(29)|(33)|(44)|(17))-?[1-9]{1}\d{2}-?\d{2}-?\d{2})|(8-?((025)|(029)|(033)|(044)|(017))-?[1-9]{1}\d{2}-?\d{2}-?\d{2})$/.test(number));
-    return
+	return /^(\+?375-?|8-?0)(25|29|33|44|17)-?[1-9]{1}\d{2}-?\d{2}-?\d{2}$/.test(number);
 }
 
-checkPhoneNumber('+375-25-777-77-77');
-checkPhoneNumber('375299999999');
-checkPhoneNumber('8-044-444-44-44');
-checkPhoneNumber('8033-6666666');
+console.log(checkPhoneNumber('+375-25-777-77-77'));
+console.log(checkPhoneNumber('375299999999'));
+console.log(checkPhoneNumber('8-044-444-44-44'));
+console.log(checkPhoneNumber('8033-6666666'));
+
 
 /*
 Переписать решение задачи с поиском гласных с использованием регулярного выражения. Протестировать ситуацию, когда
@@ -48,11 +48,9 @@ checkPhoneNumber('8033-6666666');
 */
 
 function countVowelLetters(str) {
-    var result = str.match(/[аеёиоуыэюя]/ig);
-    if (!result) {
-    return 0
-    }
-    return result.length
+	var result = str.match(/[аеёиоуыэюя]/ig);
+
+	return result === null ? 0 : result.length;
 }
 
 countVowelLetters('Шла Саша по шоссе И сосала сУшку');
